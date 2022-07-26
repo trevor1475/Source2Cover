@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Source2Cover", "Source2Cover\Source2Cover.csproj", "{32A06256-E88D-428A-9517-D3650A1982DB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CDD7DA64-22CA-45D9-82C8-0F456F0A6AE7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{32A06256-E88D-428A-9517-D3650A1982DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32A06256-E88D-428A-9517-D3650A1982DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32A06256-E88D-428A-9517-D3650A1982DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32A06256-E88D-428A-9517-D3650A1982DB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5C9FEF18-34FE-4DFD-B27D-B0D3C1A25D0F}
+	EndGlobalSection
+EndGlobal
