@@ -1,0 +1,43 @@
+{
+  "OutputDirectoryPath": "",
+
+  "Name": "Trevor Livingston",
+  "StreetAddress": "32-745 Farmstead Drive",
+  "CityAddress": "Milton, ON",
+  "PhoneNumber": "905-876-5630",
+  "Email": "livingston-t@live.ca",
+  "Github": "Github: trevor1475",
+  "GoalRegexes": {
+    "group|team": "This opportunity is very appealing to me as my goal is to work in a team of developers with the aim to create an excellent user experience.",
+    "agile": "This opportunity is very appealing to me as my goal is to work in an agile environment with the aim to create an excellent user experience.",
+    ".": "This opportunity is very appealing to me as my goal is to work in an environment that challenges my current skill set and has the aim to create an excellent user experience."
+  },
+  "SkillIntros": [
+    "I believe in this position I would be of great benefit with my set of skills combined with my",
+    "As well as my"
+  ],
+  "SkillRegexes": {
+    "analysis|analytical|solv|problem|solution|fix|bug": "analytical and problem-solving abilities",
+    "learn|develop|striv": "ability to learn and adapt to new technology quickly",
+    "fast[\\s-]paced|due date|deadline": "work calmly and efficiently under a tight schedule to ensure deadlines are met"
+  },
+  "ExperienceIntros": [
+    "",
+    "Also,",
+    "Furthermore,",
+    "Finally,"
+  ],
+  "ExperienceRegexes": {
+    "\\bc(?:\\s|\\n|,|;)": "my natural language during university was C. I have grown my foundation throughout my education with C and have a lot of experience which I feel confident in utilizing.",
+    "c#": "in recent years, C# has become my favourite programming language and my default selection for programming anything personal. I feel the most confident out of any other language in utilizing it.",
+    "c\\+\\+|cpp|qt": "I have experience with C++ from my previous co-op work term at AGFA Graphics. Which ranged from gui enhancements using Qt as a framework to bit reading from a hardware connection.",
+    "oop|object[\\s-]oriented": "I have become accustomed to object oriented programming over multiple different languages which utilize it.",
+    "bash|shell|python": "I have done shell scripting through bash and python for simple installation of projects that allow users to build and install the project with ease.",
+    "valgrind|gdb": "my main debugging tools back in university was Valgrind and gdb. They were a great help in performing memory tests and tracing into the program to solve problems.",
+    "google (?:test|script)|jenkins|integrat(?:ion|ed) test|test auto": "I'm experienced in testing through utilizing tools such as Google Tests and Jenkins or simply writing integration and unit tests.",
+    "automat(?:ate|ed)": "I am keen to automating and finding new areas that can be automated, such as this cover letter which is created by a program I wrote which is available to see on my GitHub.",
+    "sql|optimiz|database": "I have experience with SQL query creation and optimization, primarily with Linq to SQL, as well as report creation and management.",
+    "javascript|jquery": "I have worked with javascript and also created my own userscripts to enhance my browsing experience.",
+    "azure|version control|pipeline":  "I have utilized Azure DevOps for version control, pipeline creation and management, and work item boards."
+  }
+}
