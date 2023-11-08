@@ -34,9 +34,10 @@ namespace Source2Cover.JobSites
         {
             string cleanedUpText = Regex.Replace(innerText, @"&amp;", "&");
             cleanedUpText = Regex.Replace(cleanedUpText, @"<li>", " - ");
-            cleanedUpText = Regex.Replace(cleanedUpText, @"<\/{0,1}(?:b|i|p|ul|li)>", "");
+            cleanedUpText = Regex.Replace(cleanedUpText, @"<\/{0,1}(?:b|i|p|ul|li|strong)>", "");
             cleanedUpText = Regex.Replace(cleanedUpText, @"\n+", "\n");
-            return cleanedUpText;
+            cleanedUpText = Regex.Replace(cleanedUpText, @"\t", " ");
+            return cleanedUpText.Trim();
         }
 
         internal virtual void Parse(string source)
@@ -54,11 +55,11 @@ namespace Source2Cover.JobSites
             int startOfInnerText;
             int endOfInnerText;
 
-            do
-            {
-                startOfInnerText = text.IndexOf(">");
-                text = text.Substring(startOfInnerText + 1);
-            } while (text[0] == '<');
+            // Find the start of inner text
+            Match match;
+            match = Regex.Match(text, @">\w");
+            startOfInnerText = match.Success ? match.Index : -1;
+            text = text.Substring(startOfInnerText + 1);
 
             endOfInnerText = text.IndexOf($"</{elementType}");
             text = text.Substring(0, endOfInnerText);
@@ -66,7 +67,7 @@ namespace Source2Cover.JobSites
             {
                 endOfInnerText = text.LastIndexOf("</");
                 text = text.Substring(0, endOfInnerText);
-            } ;
+            };
 
             //int endOfElement = text.IndexOf($"</{elementType}");
             //if (endOfElement != -1)
@@ -91,7 +92,7 @@ namespace Source2Cover.JobSites
             //    return text.Substring(text.IndexOf(">") + 1);
             //}
 
-            return text;
+            return RemoveHtmlClutter(text);
         }
     }
 }
