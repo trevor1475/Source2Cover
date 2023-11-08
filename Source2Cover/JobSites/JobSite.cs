@@ -15,6 +15,8 @@ namespace Source2Cover.JobSites
         internal abstract string JobDescriptionElementId { get; }
         internal virtual string JobDescriptionElementType { get; } = ElementTypes.DIV;
         public string JobDescription { get; private set; }
+        internal abstract string CityElementId { get; }
+        internal virtual string CityElementType { get; } = ElementTypes.DIV;
         public string City { get; private set; }
 
         public string UrlId { get; set; }
@@ -42,6 +44,7 @@ namespace Source2Cover.JobSites
             JobTitle = ParseElement(JobTitleElementId, JobTitleElementType, source);
             Company = ParseElement(CompanyElementId, CompanyElementType, source);
             JobDescription = ParseElement(JobDescriptionElementId, JobDescriptionElementType, source);
+            City = ParseElement(CityElementId, CityElementType, source);
         }
 
         internal virtual string ParseElement(string elementId, string elementType, string source)

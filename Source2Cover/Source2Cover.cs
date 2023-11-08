@@ -19,13 +19,22 @@ namespace Source2Cover
 
             foreach (var posting in postings)
             {
-                var jobHtml = File.ReadAllText(posting);
-                jobSite = MatchesJobSite(jobHtml, jobSites);
+                if (posting.EndsWith("gitkeep"))
+                {
+                    continue;
+                }
+
+                var postingText = File.ReadAllText(posting);
+                jobSite = MatchesJobSite(postingText, jobSites);
 
                 if (jobSite != null)
                 {
-                    jobSite.Parse(jobHtml);
+                    jobSite.Parse(postingText);
                     CoverLetterGenerator.Generate(jobSite.JobTitle, jobSite.Company, jobSite.City, jobSite.JobDescription, UrlId: jobSite.UrlId);
+                }
+                else if (posting.EndsWith("txt"))
+                {
+                    CoverLetterGenerator.Generate(null, null, null, postingText, fileName: Path.GetFileName(posting));
                 }
             }
 

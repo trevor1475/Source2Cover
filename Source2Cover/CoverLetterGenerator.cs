@@ -25,8 +25,12 @@ namespace Source2Cover
             _experienceRegexes = ParseRegexesConfig(_config.ExperienceRegexes);
         }
 
-        internal static void Generate(string jobTitle, string company, string city, string jobDescription, string? UrlId = null)
+        internal static void Generate(string? jobTitle, string? company, string? city, string jobDescription, string? UrlId = null, string? fileName = null)
         {
+            jobTitle = jobTitle ?? "***Job Title***";
+            company = company ?? "***Job Company***";
+            city = city ?? "***Job City***";
+
             Console.WriteLine($"Generating: {company} - {jobTitle}");
 
             TextInfo textInfo = new CultureInfo("en-CA", false).TextInfo;
@@ -78,13 +82,22 @@ namespace Source2Cover
                 Directory.CreateDirectory(outputPath);
             }
 
-            string outputFullPath = $"{outputPath}\\{company} - {jobTitle}";   
-            if (UrlId != null)
-            {
-                outputFullPath += $" - {UrlId}";
-            }
-            outputFullPath += ".txt";
+            string outputFullPath = $"{outputPath}\\";
 
+            if (fileName != null)
+            {
+                outputFullPath = $"{outputFullPath}{fileName}";
+            }
+            else
+            {
+                outputFullPath = $"{outputFullPath}{company} - {jobTitle}";
+                if (UrlId != null)
+                {
+                    outputFullPath += $" - {UrlId}";
+                }
+                outputFullPath += ".txt";
+            }
+            
             outputFullPath = Regex.Replace(outputFullPath, @"[\/:*?<>|]", " ");
             File.WriteAllTextAsync(outputFullPath, coverLetter);
 
