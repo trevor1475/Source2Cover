@@ -49,45 +49,51 @@ namespace Source2Cover
             }
 
 
-            //TODO keep getting 403 on indeed, not sure
-
-            using (var handler = new HttpClientHandler() { AutomaticDecompression = DecompressionMethods.GZip })
+            //Doesn't work for indeed, they have scraping protection
+            if (jobSite.GetType() != typeof(Indeed))
             {
-                handler.UseDefaultCredentials = true;
-
-                using (HttpClient client = new(handler))
+                using (var handler = new HttpClientHandler() { AutomaticDecompression = DecompressionMethods.GZip })
                 {
-                    client.DefaultRequestHeaders.Clear();
-                    client.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36");
+                    handler.UseDefaultCredentials = true;
 
-                    client.DefaultRequestHeaders.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7");
-                    client.DefaultRequestHeaders.TryAddWithoutValidation("Accept-Encoding", "gzip, deflate, br");
-                    client.DefaultRequestHeaders.TryAddWithoutValidation("Accept-Language", "en-US,en;q=0.9");
-
-
-
-                    client.DefaultRequestHeaders.TryAddWithoutValidation("Cache-Control", "max-age=0");
-                    client.DefaultRequestHeaders.TryAddWithoutValidation("Connection", "keep-alive");
-                    //client.DefaultRequestHeaders.ConnectionClose = false;
-
-                    using (HttpResponseMessage response = client.GetAsync(jobSite.Url).Result)
+                    using (HttpClient client = new(handler))
                     {
-                        // HTTP, not HTTPS
-                        if (!response.IsSuccessStatusCode)
-                        {
-                            Console.WriteLine($"Failed to pull source code from: {jobSite.Url}");
-                            Console.WriteLine($"{response.ToString()}");
-                            return;
-                        }
+                        client.DefaultRequestHeaders.Clear();
+                        client.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36");
 
-                        using (HttpContent content = response.Content)
+                        client.DefaultRequestHeaders.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7");
+                        client.DefaultRequestHeaders.TryAddWithoutValidation("Accept-Encoding", "gzip, deflate, br");
+                        client.DefaultRequestHeaders.TryAddWithoutValidation("Accept-Language", "en-US,en;q=0.9");
+
+
+
+                        client.DefaultRequestHeaders.TryAddWithoutValidation("Cache-Control", "max-age=0");
+                        client.DefaultRequestHeaders.TryAddWithoutValidation("Connection", "keep-alive");
+                        //client.DefaultRequestHeaders.ConnectionClose = false;
+
+                        using (HttpResponseMessage response = client.GetAsync(jobSite.Url).Result)
                         {
-                            string source = content.ReadAsStringAsync().Result;
-                            jobSite.Parse(source);
-                            CoverLetterGenerator.Generate(jobSite.JobTitle, jobSite.Company, jobSite.City, jobSite.JobDescription, UrlId: jobSite.UrlId);
+                            // HTTP, not HTTPS
+                            if (!response.IsSuccessStatusCode)
+                            {
+                                Console.WriteLine($"Failed to pull source code from: {jobSite.Url}");
+                                Console.WriteLine($"{response.ToString()}");
+                                return;
+                            }
+
+                            using (HttpContent content = response.Content)
+                            {
+                                string source = content.ReadAsStringAsync().Result;
+                                jobSite.Parse(source);
+                                CoverLetterGenerator.Generate(jobSite.JobTitle, jobSite.Company, jobSite.City, jobSite.JobDescription, UrlId: jobSite.UrlId);
+                            }
                         }
                     }
                 }
+            }
+            else
+            {
+                Console.WriteLine("Please manually download HTML for Indeed. Url scrapping is unavailable as they have scrapping protection").
             }
         }
 

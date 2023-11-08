@@ -15,6 +15,13 @@ namespace Source2Cover.JobSites
 
         internal override bool IsValid(string source)
         {
+            if (source.Contains(HtmlSignifier))
+            {
+                string startOfUrl = source.Substring(source.IndexOf("jk="));
+                UrlId = startOfUrl.Substring(3, startOfUrl.IndexOf("\"") - 3);
+                return true;
+            }
+
             Match match;
 
             if (!(match = Regex.Match(source, UrlPattern)).Success)
@@ -35,18 +42,14 @@ namespace Source2Cover.JobSites
 
                 UrlId = jobArg;
                 Url = $"https{match.Groups[2]}viewjob?{jobArg}";
-
-                return Regex.IsMatch(source, UrlPattern);
             }
-
-            if (source.Contains(HtmlSignifier))
+            else
             {
-                string startOfUrl = source.Substring(source.IndexOf("jk="));
-                UrlId = startOfUrl.Substring(3, startOfUrl.IndexOf("\"") - 3);
-                return true;
+                Url = source;
+                UrlId = Regex.Match(match.Groups[3].Value, @"jk=(\w+)").Groups[1].Value;
             }
 
-            return false;
+            return Regex.IsMatch(source, UrlPattern);
         }
 
         internal override string ParseElement(string elementId, string elementType, string source)
